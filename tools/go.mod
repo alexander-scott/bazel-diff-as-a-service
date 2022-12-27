@@ -1,4 +1,4 @@
-module github.com/golang-templates/seed/build
+module github.com/alexander-scott/bazel-diff-as-a-service/build
 
 go 1.18
 

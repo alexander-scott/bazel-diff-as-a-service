@@ -5,7 +5,7 @@ linters-settings:
   gocyclo:
     min-complexity: 15
   goimports:
-    local-prefixes: github.com/golang-templates/seed
+    local-prefixes: github.com/alexander-scott/bazel-diff-as-a-service
   govet:
     check-shadowing: true
   misspell:
@@ -53,5 +53,5 @@ linters:
     - whitespace
 
 issues:
-  # enable issues excluded by default 
+  # enable issues excluded by default
   exclude-use-default: false

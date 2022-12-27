@@ -1,3 +1,3 @@
 FROM scratch
-COPY seed /
-ENTRYPOINT ["/seed"]
+COPY bazel-diff-as-a-service /
+ENTRYPOINT ["/bazel-diff-as-a-service"]

@@ -14,10 +14,10 @@
     // gopls
     "go.useLanguageServer": true,
     "gopls": {
-        "formatting.local": "github.com/golang-templates/seed",
+        "formatting.local": "github.com/alexander-scott/bazel-diff-as-a-service",
         "formatting.gofumpt": true
     },
-    // golangci-lint  
+    // golangci-lint
     "go.lintTool": "golangci-lint",
     "go.lintFlags": [
         "--fast"

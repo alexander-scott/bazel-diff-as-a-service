@@ -16,10 +16,10 @@ archives:
         format: zip
 dockers:
   - image_templates:
-    - "ghcr.io/golang-templates/seed:latest"
-    - "ghcr.io/golang-templates/seed:{{ .Major }}"
-    - "ghcr.io/golang-templates/seed:{{ .Major }}.{{ .Minor }}"
-    - "ghcr.io/golang-templates/seed:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+    - "ghcr.io/alexander-scott/bazel-diff-as-a-service:latest"
+    - "ghcr.io/alexander-scott/bazel-diff-as-a-service:{{ .Major }}"
+    - "ghcr.io/alexander-scott/bazel-diff-as-a-service:{{ .Major }}.{{ .Minor }}"
+    - "ghcr.io/alexander-scott/bazel-diff-as-a-service:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     build_flag_templates:
     - "--pull"
     # OCI annotations: https://github.com/opencontainers/image-spec/blob/main/annotations.md
