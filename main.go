@@ -73,10 +73,20 @@ func getBazel(w http.ResponseWriter, r *http.Request) {
 
 	// Clone the specified repo
 	fmt.Println("Cloning repo @ " + internal.EscapeStringBeforeLogging(requestData.GitURL))
-	cloneErr := git.CloneRepo(requestData.GitURL, gitCloneDest)
+	repo, cloneErr := git.CloneRepo(requestData.GitURL, gitCloneDest)
 	if cloneErr != nil {
 		fmt.Println("Exiting early due to git clone failure: " + cloneErr.Error())
 		sendMessageToClient(w, cloneErr.Error())
+		return
+	}
+
+	// Checkout the repo to the starting hash
+	fmt.Println("Checking out repo to commit: " + internal.EscapeStringBeforeLogging(requestData.StartCommit))
+	checkoutErr := git.Checkout(repo, requestData.StartCommit)
+	if checkoutErr != nil {
+		fmt.Println("Exiting early due to git checkout failure: " + checkoutErr.Error())
+		sendMessageToClient(w, checkoutErr.Error())
+		git.CleanupPath(gitCloneDest)
 		return
 	}
 
@@ -95,3 +105,7 @@ func sendMessageToClient(w http.ResponseWriter, msg string) {
 		os.Exit(1)
 	}
 }
+
+/*
+curl -X POST -H 'Content-Type: application/json' -d '{"git_url":"https://github.com/kriscfoster/multi-language-bazel-monorepo.git","start_commit":"af7bd7acf3ede83d9b2d86167d53a4fa285e4926","end_commit":"fsbf98231rf"}' -v  http://localhost:3333/bazel
+*/
