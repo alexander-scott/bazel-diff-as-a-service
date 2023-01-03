@@ -8,10 +8,10 @@ import (
 )
 
 // CloneRepo shall clone the specified repo in the specified path
-func CloneRepo(cloneURL string, cloneDest string) error {
-	_, err := git.PlainClone(cloneDest, false, &git.CloneOptions{
+func CloneRepo(cloneURL string, cloneDest string) (*git.Repository, error) {
+	repo, err := git.PlainClone(cloneDest, false, &git.CloneOptions{
 		URL:      cloneURL,
 		Progress: os.Stdout,
 	})
-	return err
+	return repo, err
 }
