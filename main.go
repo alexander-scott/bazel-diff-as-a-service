@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"time"
 
+	"github.com/alexander-scott/bazel-diff-as-a-service/internal"
 	"github.com/alexander-scott/bazel-diff-as-a-service/pkg/validation"
 )
 
@@ -63,11 +64,11 @@ func getBazel(w http.ResponseWriter, r *http.Request) {
 	requestData, validationErr := validation.ValidateRequest(body)
 	if validationErr != nil {
 		sendMessageToClient(w, validationErr.Error())
-		fmt.Println("Exiting early due to bad request")
+		fmt.Println("Exiting early due to invalid request")
 		return
 	}
 
-	fmt.Println("Cloning repo @ " + requestData.GitURL)
+	fmt.Println("Cloning repo @ " + internal.EscapeStringBeforeLogging(requestData.GitURL))
 
 	// Invoke bazel based on the parameters
 	invokeBazel()
@@ -79,5 +80,6 @@ func sendMessageToClient(w http.ResponseWriter, msg string) {
 	_, err := io.WriteString(w, msg+"/n")
 	if err != nil {
 		fmt.Println("Failed to send string back along connection")
+		os.Exit(1)
 	}
 }

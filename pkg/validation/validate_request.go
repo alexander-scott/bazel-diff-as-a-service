@@ -5,7 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"strings"
+
+	"github.com/alexander-scott/bazel-diff-as-a-service/internal"
 )
 
 // RequestData contains information about the request
@@ -30,15 +31,9 @@ func ValidateRequest(bytes []byte) (RequestData, error) {
 	}
 
 	// Check if the two necessary keys are present and print them
-	fmt.Printf("Git URL: %s\n", escapeStringBeforeLogging(requestData.GitURL))
-	fmt.Printf("Starting hash: %s\n", escapeStringBeforeLogging(requestData.StartCommit))
-	fmt.Printf("Ending hash: %s\n", escapeStringBeforeLogging(requestData.EndCommit))
+	fmt.Printf("Git URL: %s\n", internal.EscapeStringBeforeLogging(requestData.GitURL))
+	fmt.Printf("Starting hash: %s\n", internal.EscapeStringBeforeLogging(requestData.StartCommit))
+	fmt.Printf("Ending hash: %s\n", internal.EscapeStringBeforeLogging(requestData.EndCommit))
 
 	return requestData, nil
-}
-
-func escapeStringBeforeLogging(inputString string) string {
-	escapedString := strings.ReplaceAll(inputString, "\n", "")
-	escapedString = strings.ReplaceAll(escapedString, "\r", "")
-	return escapedString
 }
