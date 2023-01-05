@@ -7,10 +7,10 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"os/exec"
 	"time"
 
 	"github.com/alexander-scott/bazel-diff-as-a-service/internal"
+	"github.com/alexander-scott/bazel-diff-as-a-service/pkg/bazel"
 	"github.com/alexander-scott/bazel-diff-as-a-service/pkg/git"
 	"github.com/alexander-scott/bazel-diff-as-a-service/pkg/validation"
 )
@@ -37,14 +37,6 @@ func main() {
 
 func greet() string {
 	return "Hi!"
-}
-
-func invokeBazel() {
-	output, err := exec.Command("bazel", "version").Output()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	fmt.Println(string(output))
 }
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
@@ -91,7 +83,7 @@ func getBazel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Invoke bazel based on the parameters
-	invokeBazel()
+	bazel.OutputWorkspaceHashes(gitCloneDest)
 
 	git.CleanupPath(gitCloneDest)
 	fmt.Println("Finished executing Bazel request")
