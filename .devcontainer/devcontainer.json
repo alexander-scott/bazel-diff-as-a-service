@@ -14,7 +14,8 @@
 		"vscode": {
 			"settings": {},
 			"extensions": [
-				"golang.Go"
+				"golang.Go",
+				"zxh404.vscode-proto3"
 			]
 		}
 	},
